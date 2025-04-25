@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création d'images de citation avec Gson et Canvas en Android</title>
+    <link rel="stylesheet" href="plus.css">
+
+</head>
+<body>
+
+    <header style="padding: 10px 20px; text-align: center; border-bottom: 1px solid #e1e1e1; font-size: 0.9em; color: #555;">
+        Projet créé par <strong style="color: #333;">Maaloul Mohamed khalil</strong> - TD1
+    </header>
+
+    <div class="section">
+        <p>Cette application Android "ImageCitation" a pour but de générer automatiquement des images combinant une citation, son auteur et un thème visuel attrayant. L'objectif est de permettre aux utilisateurs de créer facilement des visuels partageables sans avoir à maîtriser des outils de conception graphique.</p>
+    </div>
+
+    <div class="section">
+        <h2>1. Comment j'ai obtenu l'image finale</h2>
+
+        <p>Le processus global de génération d'image dans notre application suit ces étapes principales :</p>
+
+        <ol>
+            <li>L'utilisateur saisit une citation et un auteur</li>
+            <li>Un fichier JSON est chargé pour définir le style (template visuel)</li>
+            <li>Le JSON est converti en objets Java avec Gson</li>
+            <li>Une image d'arrière-plan est sélectionnée selon le template</li>
+            <li>Un Canvas est créé pour dessiner le contenu</li>
+            <li>Les textes sont stylisés et positionnés selon les paramètres du template</li>
+            <li>L'image finale est affichée à l'utilisateur qui peut la partager ou l'enregistrer</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>2. Étapes détaillées de la génération</h2>
+
+        <div class="process-step">
+            <h3>Étape 1 : L'utilisateur entre les données</h3>
+            <p>L'utilisateur entre simplement la citation et le nom de l'auteur via l'interface. Il n'a pas à se soucier des aspects visuels comme la police, la taille ou la position du texte, car ces éléments sont gérés par le template.</p>
+        </div>
+
+        <div class="process-step">
+            <h3>Étape 2 : Lecture du template avec Gson</h3>
+
+            <h4>Pourquoi utiliser Gson ?</h4>
+            <p>Gson est une bibliothèque développée par Google qui permet de convertir facilement des objets Java en JSON et vice-versa. Dans notre projet, nous l'utilisons pour :</p>
+            <ul>
+                <li>Simplifier le chargement des templates de citations</li>
+                <li>Convertir un fichier JSON en objet Java utilisable</li>
+                <li>Séparer la configuration visuelle du code d'application</li>
+            </ul>
+
+            <h4>Structure de notre JSON :</h4>
+            <ul>
+                <li><code>themeName</code> : Nom du thème visuel (ex: "Randonneur")</li>
+                <li><code>background</code> : Identifiant de l'image d'arrière-plan à utiliser</li>
+                <li><code>text</code> : Contient deux sous-objets principaux :
+                    <ul>
+                        <li><code>quote</code> : Configuration de la citation
+                            <ul>
+                                <li><code>position</code> : Coordonnées x,y en pourcentage du canvas</li>
+                                <li><code>style</code> : Couleur, taille, police, poids de la police</li>
+                                <li><code>quotation_marks</code> : Configuration des guillemets (style, taille, etc.)</li>
+                            </ul>
+                        </li>
+                        <li><code>author</code> : Configuration de l'auteur
+                            <ul>
+                                <li><code>position</code> : Coordonnées x,y en pourcentage</li>
+                                <li><code>style</code> : Couleur, taille, préfixe, police</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Comment nous avons implémenté Gson :</h4>
+            <ol>
+                <li>Nous avons créé une classe Java <code>Template</code> avec la même structure que notre JSON</li>
+                <li>Cette classe contient des sous-classes correspondant aux objets imbriqués du JSON</li>
+                <li>Chaque classe possède des getters pour accéder aux attributs</li>
+                <li>Exemple : <code>template.getQuoteColor()</code> extrait la couleur depuis <code>text.quote.style.color</code></li>
+                <li>Nous chargeons le JSON avec une simple ligne : <code>Template template = gson.fromJson(reader, Template.class);</code></li>
+                <li>Gson associe automatiquement les champs du JSON avec les propriétés de nos classes</li>
+            </ol>
+        </div>
+
+        <div class="process-step">
+            <h3>Étape 3 : Préparation du Canvas</h3>
+
+            <h4>Pourquoi utiliser Canvas ?</h4>
+            <p>Canvas est le cœur de notre projet "ImageCitation" - il nous permet de créer des images personnalisées combinant :</p>
+            <ul>
+                <li>Une image d'arrière-plan atmosphérique</li>
+                <li>Le texte de la citation avec des styles précis</li>
+                <li>Le nom de l'auteur avec son propre style</li>
+            </ul>
+
+            <p>Le système de dessin d'Android se divise en deux composants principaux :</p>
+            <ul>
+                <li><strong>Canvas</strong> - Détermine <em>quoi</em> dessiner</li>
+                <li><strong>Paint</strong> - Détermine <em>comment</em> le dessiner</li>
+            </ul>
+
+            <h4>Comment nous avons implémenté Canvas :</h4>
+            <ol>
+                <li>Un Bitmap mutable est créé à partir de l'image d'arrière-plan</li>
+                <li>Un Canvas est initialisé pour dessiner sur ce Bitmap</li>
+                <li>Deux objets Paint sont configurés : un pour la citation et un pour l'auteur</li>
+                <li>Les propriétés des Paint sont définies selon le template :</li>
+            </ol>
+            
+            <pre><code>quotePaint.setColor(template.getQuoteColor());
+quotePaint.setTextSize(template.getQuoteSize());</code></pre>
+            
+            <p>Les positions sont calculées en fonction des pourcentages définis dans le template :</p>
+            <pre><code>float quoteX = template.getQuoteX(canvas.getWidth());</code></pre>
+        </div>
+
+        <div class="process-step">
+            <h3>Étape 4 : Dessin final du texte et rendu de l'image</h3>
+
+            <ol>
+                <li>Les positions sont calculées en fonction des pourcentages définis dans le template</li>
+                <li>La citation est formatée avec des guillemets selon les paramètres du template</li>
+                <li>Le texte est dessiné ligne par ligne si nécessaire pour gérer les longs textes :</li>
+            </ol>
+            <pre><code>canvas.drawText(authorTextToDraw, authorX, authorY, authorPaint);</code></pre>
+            <p>L'auteur est affiché à sa position avec un préfixe</p>
+        </div>
+
+        <div class="process-step">
+            <h3>Étape 5 : Résultat affiché dans l'application</h3>
+            <ol>
+                <li>Le Bitmap final contenant l'arrière-plan et le texte est retourné</li>
+                <li>L'image est affichée dans l'ImageView de l'interface utilisateur</li>
+                <li>L'utilisateur peut partager ou sauvegarder l'image générée</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Pourquoi cette approche est efficace</h2>
+
+        <p>Notre architecture présente plusieurs avantages clés :</p>
+
+        <ul>
+            <li><strong>Séparation des préoccupations</strong> : Le style visuel (JSON) est séparé du code de rendu</li>
+            <li><strong>Extensibilité</strong> : De nouveaux templates peuvent être ajoutés sans modifier le code</li>
+            <li><strong>Personnalisation précise</strong> : Contrôle fin sur chaque aspect visuel via le template</li>
+            <li><strong>Performance</strong> : Canvas offre un rendu rapide adapté aux appareils mobiles</li>
+        </ul>
+    </div>
+	<hr>
+	<footer>Cette layout est un WebView qui utilise une page HTML </footer>
+</body>
+</html>

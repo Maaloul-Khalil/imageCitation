@@ -1,0 +1,43 @@
+{
+  "themeName": "Crépuscule",
+  "background": "simple2",
+  "text": {
+    "quote": {
+      "position": {
+        "x": "50%",
+        "y": "52%"
+      },
+      "style": {
+        "color": "#66545e",
+        "size": "26pt",
+        "quotation_marks": {
+          "enabled": true,
+          "style": "double_curved",
+          "size_multiplier": 2,
+          "vertical_offset": -0.2,
+          "color": "#66545e"
+        },
+        "font": {
+          "family": "Bricolage Grotesque",
+          "weight": "bold"
+        }
+      }
+    },
+    "author": {
+      "position": {
+        "x": "50%",
+        "y": "85%"
+      },
+      "style": {
+        "color": "#66545e",
+        "size": "18pt",
+        "prefix": "- ",
+        "font": {
+          "family": "Bricolage Grotesque",
+          "weight": "bold",
+          "italic": true
+        }
+      }
+    }
+  }
+}

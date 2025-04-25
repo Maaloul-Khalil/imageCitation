@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Cache directory for temporary clipboard images -->
+    <cache-path
+        name="clipboard"
+        path="clipboard/" />
+
+    <!-- Optional: Add other paths if needed -->
+    <!-- <external-path name="external_files" path="."/> -->
+</paths>
