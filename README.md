@@ -2,7 +2,9 @@
 
 Une application Android en Java qui transforme tes citations en images stylées. J'ai implémenté les fondamentaux de la POO avec des classes Template modulaires, le parsing JSON avec Gson pour charger les styles visuels, et les méthodes Android onCreate() pour initialiser le rendu Canvas des images
 
-![gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXNheTh2OHc1MTczeGw5b3dqb2Ztcjg4bDAxMHB3bzQ1c2todDgyeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c2hwP7u1G1HSFANuHa/giphy.gif)
+<p align="center" width="100%">
+    <img width="33%" src="[https://i.sstatic.net/RJj4x.png](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXNheTh2OHc1MTczeGw5b3dqb2Ztcjg4bDAxMHB3bzQ1c2todDgyeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c2hwP7u1G1HSFANuHa/giphy.gif)">
+</p>
 
 ## Fonctionnalités
 
@@ -87,7 +89,7 @@ L'application utilise un système de templates JSON pour définir l'apparence de
 }
 ```
 
-***GIF recommandé ici** : Démonstration du changement de templates*
+***On utilise les informations ici à l'aide des getters du classe Template***
 
 ## Processus de génération
 
@@ -98,5 +100,5 @@ L'application utilise un système de templates JSON pour définir l'apparence de
 5. **Rendu final** : Dessin du texte sur l'arrière-plan
 6. **Affichage** : Présentation de l'image générée
 
-## 📧 Contact
+## Contact
 **Email** : [maaloulmohamedkhalil@isimsf.u-sfax.tn](mailto:maaloulmohamedkhalil@isimsf.u-sfax.tn)
