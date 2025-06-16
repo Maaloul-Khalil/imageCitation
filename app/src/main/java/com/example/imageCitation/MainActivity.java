@@ -2,11 +2,16 @@ package com.example.imageCitation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import com.google.android.material.textfield.TextInputEditText;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,14 +25,17 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText input1, input2;
+    private TextInputEditText input1, input2;
     private Button btnDoIt;
     private Spinner jsonSpinner;
     private String selectedJsonFile;
     private HashMap<String, String> displayNameToFileMap = new HashMap<>();
-    private Button btnColler;
+    //private Button btnColler;
+    private ImageButton btnGetQuote, btnvider; // Add this new button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +52,24 @@ public class MainActivity extends AppCompatActivity {
         input1 = findViewById(R.id.input1);
         input2 = findViewById(R.id.input2);
 
-        btnColler = findViewById(R.id.btnColler);
-
+        //btnColler = findViewById(R.id.btnColler);
+        btnGetQuote = findViewById(R.id.btnGetQuote);
+        btnvider = findViewById(R.id.btnvider);
+        /*
         btnColler.setOnClickListener(v -> {
             if (input1 != null) {
                 input1.requestFocus();
                 input1.onTextContextMenuItem(android.R.id.paste);
             }
+        });*/
+
+        btnGetQuote.setOnClickListener(v -> {
+            Log.d("MainActivity", "Quote button clicked");
+            fetchQuoteAsync();
+        });
+
+        btnvider.setOnClickListener( v -> {
+            input1.setText("");input2.setText("");
         });
 
         btnDoIt = findViewById(R.id.btnDoIt);
@@ -136,6 +155,28 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private void fetchQuoteAsync() {
+        // No need for background thread since we're not doing network operations
+        Log.d("MainActivity", "Getting random French quote and author");
+
+        // Get quote and author
+        QuoteFetcher.QuoteAndAuthor quoteData = QuoteFetcher.getRandomFrenchQuoteWithAuthor();
+
+        Log.d("MainActivity", "Quote: " + quoteData.quote);
+        Log.d("MainActivity", "Author: " + quoteData.author);
+
+        // Update UI - quote in input1, author in input2
+        if (input1 != null) {
+            input1.setText(quoteData.quote);
+            Log.d("MainActivity", "Quote set in input1");
+        }
+
+        if (input2 != null) {
+            input2.setText(quoteData.author);
+            Log.d("MainActivity", "Author set in input2");
         }
     }
 }
