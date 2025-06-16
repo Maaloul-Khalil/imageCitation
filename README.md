@@ -16,7 +16,7 @@ Une application Android en Java qui transforme tes citations en images stylées.
 
 <h4 align="center">Templates</h4>
 <p align="center">
-    <img style="max-width: 500px; width: 100%;" src="[URL_DE_VOTRE_IMAGE](https://github.com/Maaloul-Khalil/imageCitation/blob/master/themesPreview.png)">
+    <img style="max-width: 500px; width: 100%;" src="https://github.com/Maaloul-Khalil/imageCitation/blob/master/themesPreview.png">
 </p>
 
 ### Structure du projet
