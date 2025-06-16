@@ -3,7 +3,7 @@
 Une application Android en Java qui transforme tes citations en images stylées. J'ai implémenté les fondamentaux de la POO avec des classes Template modulaires, le parsing JSON avec Gson pour charger les styles visuels, et les méthodes Android onCreate() pour initialiser le rendu Canvas des images
 
 <p align="center" width="100%">
-    <img width="33%" src="[https://i.sstatic.net/RJj4x.png](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXNheTh2OHc1MTczeGw5b3dqb2Ztcjg4bDAxMHB3bzQ1c2todDgyeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c2hwP7u1G1HSFANuHa/giphy.gif)">
+    <img width="33%" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXNheTh2OHc1MTczeGw5b3dqb2Ztcjg4bDAxMHB3bzQ1c2todDgyeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c2hwP7u1G1HSFANuHa/giphy.gif">
 </p>
 
 ## Fonctionnalités
